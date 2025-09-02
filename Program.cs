@@ -2,14 +2,14 @@
 
 using var ms = new MemoryStream();
 
-WriteString(ms, new(1, "Minh An 20002", "23"));
+WriteRecord(ms, new(1, "Minh An 20002", "23"));
 ms.Position = 0; // reset position to read 
 
-string result = ReadString(ms);
+string result = ReadRecord(ms);
 
 Console.WriteLine(result);
 
-void WriteString(Stream stream, Person person)
+void WriteRecord(Stream stream, Person person)
 {
     var (id, name, age) = person;
 
@@ -34,7 +34,7 @@ void WriteString(Stream stream, Person person)
     stream.Write(ageBytes, 0, ageBytes.Length);
 }
 
-string ReadString(Stream stream)
+string ReadRecord(Stream stream)
 {
     // Process Id
     Span<byte> lengthBytes = stackalloc byte[sizeof(int)];
