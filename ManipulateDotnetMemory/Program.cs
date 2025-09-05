@@ -1,5 +1,23 @@
 ﻿using System.Text;
 
+
+/*
+    BINARY FORMAT LAYOUT:
+    [4 bytes] Magic Number (0x314C4157)
+    [1 byte]  Format Version (1)
+    [4 bytes] Entry Length (excluding header)
+    [8 bytes] Sequence Number
+    [8 bytes] Timestamp (DateTime.ToBinary())
+    [1 byte]  Operation Type
+    [8 bytes] Original File Size
+    [1 byte]  Is Large File flag
+    [4 bytes] Target Path Length + UTF-8 Target Path
+    [4 bytes] New Path Length + UTF-8 New Path (or -1 if null)
+    [4 bytes] Content Checksum Length + UTF-8 Checksum (or -1 if null)
+    [4 bytes] File Content Length + Binary Content (or -1 if null)
+    [4 bytes] CRC32 of entire entry (for integrity validation)
+*/
+
 using var ms = new MemoryStream();
 
 WriteRecord(ms, new(1, "Minh An 20002", "23"));
